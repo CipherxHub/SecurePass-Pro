@@ -43,9 +43,7 @@ A modern, secure, and feature-rich password strength checker and generator web a
 
 - **100% Client-Side**: All processing happens in your browser
 - **No Data Storage**: Passwords are never stored or transmitted
-- **Secure API Usage**: HIBP API uses k-anonymity model (only partial hash sent)
 - **Crypto API**: Uses browser's built-in cryptographic functions
-- **HTTPS Required**: Breach checking requires secure connection
 
 ## 🎯 How to Use
 
@@ -181,4 +179,5 @@ While this tool helps create and evaluate strong passwords, always follow these 
 
 ---
 
-**Built with ❤️ for better password security**
+**Built by CipherxHub with ❤️ for better password security**
+
