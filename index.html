@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Password Manager - Strength Checker & Generator</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Theme Toggle -->
+    <div class="theme-toggle-container">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+            <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+            </svg>
+            <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+            </svg>
+        </button>
+    </div>
+
+    <div class="container">
+        <header class="header">
+            <div class="logo">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                </svg>
+                <h1>SecurePass Pro</h1>
+            </div>
+            <p class="subtitle">Advanced Password Security Suite</p>
+        </header>
+
+        <!-- Tab Navigation -->
+        <div class="tabs">
+            <button class="tab-button active" data-tab="checker">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                Strength Checker
+            </button>
+            <button class="tab-button" data-tab="generator">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                </svg>
+                Generator
+            </button>
+        </div>
+
+        <!-- Password Strength Checker Tab -->
+        <div class="tab-content active" id="checker-tab">
+            <div class="card">
+                <h2 class="card-title">Password Strength Checker</h2>
+                
+                <div class="input-group">
+                    <label for="password-input">Enter Password</label>
+                    <div class="password-input-wrapper">
+                        <input 
+                            type="password" 
+                            id="password-input" 
+                            placeholder="Type your password..."
+                            autocomplete="off"
+                        >
+                        <button class="toggle-visibility" id="togglePassword">
+                            <svg class="eye-open" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                            </svg>
+                            <svg class="eye-closed" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Strength Indicator -->
+                <div class="strength-indicator">
+                    <div class="strength-bar-container">
+                        <div class="strength-bar" id="strengthBar"></div>
+                    </div>
+                    <div class="strength-text">
+                        <span id="strengthLabel">No password entered</span>
+                        <span id="strengthScore" class="strength-score">0/100</span>
+                    </div>
+                </div>
+
+                <!-- Requirements Checklist -->
+                <div class="requirements">
+                    <h3>Password Requirements</h3>
+                    <ul class="requirements-list" id="requirementsList">
+                        <li data-requirement="length">
+                            <span class="check-icon">✓</span>
+                            <span class="cross-icon">✗</span>
+                            At least 8 characters
+                        </li>
+                        <li data-requirement="uppercase">
+                            <span class="check-icon">✓</span>
+                            <span class="cross-icon">✗</span>
+                            Contains uppercase letter
+                        </li>
+                        <li data-requirement="lowercase">
+                            <span class="check-icon">✓</span>
+                            <span class="cross-icon">✗</span>
+                            Contains lowercase letter
+                        </li>
+                        <li data-requirement="number">
+                            <span class="check-icon">✓</span>
+                            <span class="cross-icon">✗</span>
+                            Contains number
+                        </li>
+                        <li data-requirement="special">
+                            <span class="check-icon">✓</span>
+                            <span class="cross-icon">✗</span>
+                            Contains special character
+                        </li>
+                        <li data-requirement="common">
+                            <span class="check-icon">✓</span>
+                            <span class="cross-icon">✗</span>
+                            Not a common password
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Suggestions -->
+                <div class="suggestions" id="suggestions">
+                    <h3>Suggestions</h3>
+                    <ul id="suggestionsList"></ul>
+                </div>
+
+                
+            </div>
+        </div>
+
+        <!-- Password Generator Tab -->
+        <div class="tab-content" id="generator-tab">
+            <div class="card">
+                <h2 class="card-title">Password Generator</h2>
+                
+                <!-- Generated Password Display -->
+                <div class="generated-password-container">
+                    <div class="generated-password-wrapper">
+                        <input 
+                            type="text" 
+                            id="generatedPassword" 
+                            readonly 
+                            placeholder="Click generate to create password"
+                        >
+                        <button class="btn-icon" id="copyPassword" title="Copy to clipboard">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                            </svg>
+                        </button>
+                        <button class="btn-icon" id="refreshPassword" title="Generate new password">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="copy-feedback" id="copyFeedback">Copied!</div>
+                </div>
+
+                <!-- Generator Settings -->
+                <div class="generator-settings">
+                    <h3>Settings</h3>
+                    
+                    <!-- Password Length -->
+                    <div class="setting-group">
+                        <label for="passwordLength">
+                            Password Length: <span id="lengthValue">16</span>
+                        </label>
+                        <input 
+                            type="range" 
+                            id="passwordLength" 
+                            min="8" 
+                            max="32" 
+                            value="16"
+                            class="slider"
+                        >
+                        <div class="length-labels">
+                            <span>8</span>
+                            <span>32</span>
+                        </div>
+                    </div>
+
+                    <!-- Character Options -->
+                    <div class="character-options">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="includeUppercase" checked>
+                            <span class="checkbox-custom"></span>
+                            Uppercase Letters (A-Z)
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="includeLowercase" checked>
+                            <span class="checkbox-custom"></span>
+                            Lowercase Letters (a-z)
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="includeNumbers" checked>
+                            <span class="checkbox-custom"></span>
+                            Numbers (0-9)
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="includeSymbols" checked>
+                            <span class="checkbox-custom"></span>
+                            Special Characters (!@#$%^&*)
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="excludeSimilar">
+                            <span class="checkbox-custom"></span>
+                            Exclude Similar Characters (iIl1oO0)
+                        </label>
+                    </div>
+
+                    <!-- Generate Button -->
+                    <button class="btn btn-primary" id="generatePassword">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                        </svg>
+                        Generate Password
+                    </button>
+                </div>
+
+                <!-- Password History -->
+                <div class="password-history">
+                    <h3>Recent Passwords</h3>
+                    <div class="history-info">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <span>History is stored locally and cleared on page refresh</span>
+                    </div>
+                    <ul id="passwordHistory"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
